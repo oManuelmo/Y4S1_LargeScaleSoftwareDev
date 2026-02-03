@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message User {
+    int64 id = 1;
+    optional string email = 3;
+}

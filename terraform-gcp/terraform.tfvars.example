@@ -1,0 +1,2 @@
+project_id  = "feup-ds"
+db_password = "<DB_PASSWORD>"

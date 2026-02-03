@@ -1,0 +1,14 @@
+# MIPS-Frontend/docker-compose.yaml
+
+services:
+  example-page:
+    container_name: rec_mips
+    build:
+      context: ./rec_frontend
+      dockerfile: Dockerfile
+    command: pnpm dev
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./rec_frontend:/app
+      - /app/node_modules

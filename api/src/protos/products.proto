@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package product.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Product {
+    int64 id = 1;
+    optional string name = 2;
+    optional string image_url = 3;
+    optional double price = 4;
+}

@@ -1,0 +1,48 @@
+services:
+  pubsub-emulator:
+    image: dipjyotimetia/pubsub-emulator:latest
+    container_name: pubsub-emulator
+    environment:
+      - PUBSUB_PROJECT=feup-ds
+      - PUBSUB_TOPIC=new_review,new_order,products,users,vendor-registration-topic,wishlist
+      - PUBSUB_SUBSCRIPTION=new_review_sub_31,new_order_sub_31,products-sub-31,users-sub-31,vendor-registration-sub-31,wishlist_sub-31
+      - PUBSUB_PORT=8085
+      - DASHBOARD_PORT=8081
+    ports:
+      - "8085:8085"  # Pub/Sub emulator
+      - "8081:8081"  # Web dashboard
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  postgres:
+    image: postgres:16.4
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+  redis:
+    image: redis:7.2-alpine
+    container_name: myredis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: 
+      - redis-server 
+      - --appendonly yes 
+      - --requirepass myredis
+      - --maxmemory 100mb
+      - --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+volumes:
+  postgres_data:
+  redis_data:
+    driver: local

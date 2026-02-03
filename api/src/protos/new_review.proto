@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package review.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Review {
+    int64 id = 1;
+    optional int64 product_id = 2;
+    optional int64 customer_id = 3;
+    optional int32 rating = 4;
+    optional string comment = 5;
+    optional google.protobuf.Timestamp created_at = 6;
+}

@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package vendor.v1;
+
+message Vendor {
+  int64 id = 1;
+}
